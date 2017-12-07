@@ -18,13 +18,14 @@ static char *rand_string_generator(char *str, size_t size)
   return str;
 }
 
-char* rand_string(size_t size)
+void rand_string(int prefix, size_t size)
 {
   char *s = malloc(size + 1);
   if (s) {
     rand_string_generator(s, size);
   }
-  return s;
+  fprintf(stdout, "%d-%s\n", prefix, s);
+  free(s);
 }
 
 int main(int argc, char**argv)
@@ -42,7 +43,7 @@ int main(int argc, char**argv)
 
   while(1) {
     str_size = (rand() / (1.0 + RAND_MAX)) * mult_factor;
-    fprintf(stdout, "%d-%s\n", delay, rand_string(str_size));
+    rand_string(delay, str_size);
     usleep(delay);
   }
 }
